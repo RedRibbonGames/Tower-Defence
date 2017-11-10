@@ -4,35 +4,38 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    public GameObject Target { get; set; }
-    private bool canShoot { get; set; }
+
+    public GameObject Target;
     public int rateOfFire { get; set; }
     // Use this for initialization
     void Start()
     {
-        LocateTarget();
+        
+        rateOfFire = 1;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        LookAtTarget();
+        LocateTarget();
+        
     }
 
     public void LocateTarget()
     {
         if (Target == null)
         {
-            CancelInvoke("ShootAtTarget");
-            canShoot = true;
+            CancelInvoke("CreateBullet");
+            Debug.Log("Hold fire");
             Target = GameObject.FindGameObjectWithTag("Enemy");
         }
 
-        
-        ShootAtTarget();
-        canShoot = false;
-
+        if (Target != null)
+        {
+            LookAtTarget();
+            ShootAtTarget();
+        }
     }
 
     public void LookAtTarget()
@@ -49,11 +52,11 @@ public class Turret : MonoBehaviour
 
     public void ShootAtTarget()
     {
-        if (canShoot)
+        if (IsInvoking("CreateBullet") == false)
         {
-            InvokeRepeating("CreateBullet", 1f, 1f);
+            InvokeRepeating("CreateBullet", 0f, 1f);
+            //Debug.Log("Starting to fire");
         }
-        
     }
 
     public void CreateBullet()

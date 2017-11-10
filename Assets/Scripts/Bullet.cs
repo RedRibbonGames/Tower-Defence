@@ -6,25 +6,33 @@ public class Bullet : MonoBehaviour
 {
 
     public GameObject Target { get; set; }
+    public int damage { get; set; }
+    public int moveSpeed { get; set; }
     // Use this for initialization
     void Start()
     {
-
+        damage = 5;
+        moveSpeed = 2;
     }
     // Update is called once per frame
     void Update()
     {
         LookAtTarget();
         Movement();
-    }    
+    }
     public void Movement()
     {
         if (Target == null)
         {
-            Destroy(gameObject);
-            Debug.Log("Boom I got Destroyed");
+            
+            transform.position += transform.right * Time.deltaTime * moveSpeed;
+            //Debug.Log("Boom I got Destroyed");
+            Destroy(gameObject, 3f);
         }
-        transform.position = Vector3.MoveTowards(transform.position, Target.transform.position, Time.deltaTime * 2);
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, Target.transform.position, Time.deltaTime * moveSpeed);
+        }
     }
     public void LookAtTarget()
     {
@@ -41,5 +49,7 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D hitObject)
     {
         Debug.Log(hitObject.tag);
+        hitObject.GetComponent<Enemy>().TakeDamage(damage);
+        Destroy(gameObject);
     }
 }
