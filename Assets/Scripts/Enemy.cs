@@ -5,9 +5,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
     private int Health { get; set; }
+    public List<Vector2> path;
 	// Use this for initialization
 	void Start () {
         Health = 20;
+        path = new List<Vector2>();
 	}
 	
 	// Update is called once per frame

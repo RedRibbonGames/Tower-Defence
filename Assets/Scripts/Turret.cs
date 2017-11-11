@@ -2,69 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret
 {
-
-    public GameObject Target;
-    public int rateOfFire { get; set; }
-    // Use this for initialization
-    void Start()
+    public Turret(int x, int y)
     {
-        
-        rateOfFire = 1;
+        GameObject Turret = new GameObject("Turret");
+        Turret.transform.position = new Vector2(x, y);
+        GameObject TurretBase = new GameObject("TurretBase");
+        GameObject TurretGun = new GameObject("TurretGun");
 
+        TurretBase.transform.SetParent(Turret.transform);
+        TurretBase.transform.position = new Vector2(0, 0);
+        TurretGun.transform.SetParent(Turret.transform);
+        TurretGun.transform.position = new Vector2(0, 0);
+
+        TurretBase.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("TurretBase");
+        TurretGun.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("TurretGun");
+        TurretGun.AddComponent<TurretScript>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        LocateTarget();
-        
-    }
-
-    public void LocateTarget()
-    {
-        if (Target == null)
-        {
-            CancelInvoke("CreateBullet");
-            Debug.Log("Hold fire");
-            Target = GameObject.FindGameObjectWithTag("Enemy");
-        }
-
-        if (Target != null)
-        {
-            LookAtTarget();
-            ShootAtTarget();
-        }
-    }
-
-    public void LookAtTarget()
-    {
-        if (Target == null)
-        {
-            return;
-        }
-        Vector3 dir = Target.transform.position - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-    }
-
-    public void ShootAtTarget()
-    {
-        if (IsInvoking("CreateBullet") == false)
-        {
-            InvokeRepeating("CreateBullet", 0f, 1f);
-            //Debug.Log("Starting to fire");
-        }
-    }
-
-    public void CreateBullet()
-    {
-        GameObject BulletObject = new GameObject();
-        BulletObject.AddComponent<Bullet>().Target = Target;
-        BulletObject.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bullet");
-        BulletObject.AddComponent<BoxCollider2D>().isTrigger = true;
-        BulletObject.transform.position = transform.position;
-    }
 }
