@@ -4,24 +4,18 @@ using UnityEngine;
 
 public class Tile
 {
-    Turret placeable;
+    public int x;
+    public int y;
+    public GameObject go;
     public Tile(int x, int y)
     {
-        GameObject go = new GameObject("Tile" + x + "-" + y);
+        go = new GameObject("Tile" + x + "-" + y);
         go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Floor1");
+        go.AddComponent<BoxCollider2D>();
+        
         go.transform.position = new Vector2(x, y);
+        go.tag = "Tile";
+        this.x = x;
+        this.y = y;
     }
-
-    public bool PlaceTurret(Turret turret)
-    {
-        if (placeable != null)
-        {
-            Debug.LogError("There is already something in that location");
-            return false;
-        }
-
-        placeable = turret;
-        return true;
-    }
-
 }

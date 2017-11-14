@@ -2,28 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
-
-    private int Health { get; set; }
-    public List<Vector2> path;
-	// Use this for initialization
-	void Start () {
-        Health = 20;
-        path = new List<Vector2>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void TakeDamage(int damage)
+public class Enemy
+{
+    public GameObject go;
+    public Enemy(Vector2 startingPosition)
     {
-        Health -= damage;
-        if (Health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        go = new GameObject("Enemy");
+        go.tag = "Enemy";
+        go.AddComponent<BoxCollider2D>();
+        go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Diamond");
+        go.AddComponent<EnemyScript>();
+        go.AddComponent<Rigidbody2D>().gravityScale = 0;
+        go.transform.position = startingPosition;
     }
-
 }

@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         damage = 5;
-        moveSpeed = 2;
+        moveSpeed = 10;
     }
     // Update is called once per frame
     void Update()
@@ -48,8 +48,11 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitObject)
     {
-        Debug.Log(hitObject.tag);
-        hitObject.GetComponent<Enemy>().TakeDamage(damage);
-        Destroy(gameObject);
+        if(hitObject.gameObject == Target)
+        {
+            hitObject.GetComponent<EnemyScript>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
+
     }
 }

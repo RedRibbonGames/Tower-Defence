@@ -27,7 +27,6 @@ public class TurretScript : MonoBehaviour
         if (Target == null)
         {
             CancelInvoke("CreateBullet");
-            Debug.Log("Hold fire");
             Target = GameObject.FindGameObjectWithTag("Enemy");
         }
 
