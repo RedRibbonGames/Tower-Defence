@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        damage = 0;
+        damage = 2;
         moveSpeed = 10;
     }
     // Update is called once per frame

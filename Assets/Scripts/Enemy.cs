@@ -10,7 +10,7 @@ public class Enemy
         go = new GameObject("Enemy");
         go.tag = "Enemy";
         go.AddComponent<BoxCollider2D>();
-        go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Diamond");
+        go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("EnemySprites/BlackVehicle");
         go.AddComponent<EnemyScript>();
         go.AddComponent<Rigidbody2D>().gravityScale = 0;
         go.transform.position = startingPosition;
