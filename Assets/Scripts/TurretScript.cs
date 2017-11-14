@@ -10,7 +10,7 @@ public class TurretScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+
         rateOfFire = 1;
 
     }
@@ -19,7 +19,7 @@ public class TurretScript : MonoBehaviour
     void Update()
     {
         LocateTarget();
-        
+
     }
 
     public void LocateTarget()
@@ -27,7 +27,19 @@ public class TurretScript : MonoBehaviour
         if (Target == null)
         {
             CancelInvoke("CreateBullet");
-            Target = GameObject.FindGameObjectWithTag("Enemy");
+            //Target = GameObject.FindGameObjectWithTag("Enemy");
+            float distance = Mathf.Infinity;
+
+            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                float goDistance = Vector3.Distance(go.transform.position, transform.position);
+                if ( goDistance < distance)
+                {
+                    Target = go;
+                    distance = goDistance;
+                }
+            }
+
         }
 
         if (Target != null)
@@ -54,13 +66,12 @@ public class TurretScript : MonoBehaviour
         if (IsInvoking("CreateBullet") == false)
         {
             InvokeRepeating("CreateBullet", 0f, 1f);
-            //Debug.Log("Starting to fire");
         }
     }
 
     public void CreateBullet()
     {
-        GameObject BulletObject = new GameObject();
+        GameObject BulletObject = new GameObject("Bullet");
         BulletObject.AddComponent<Bullet>().Target = Target;
         BulletObject.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bullet");
         BulletObject.AddComponent<BoxCollider2D>().isTrigger = true;

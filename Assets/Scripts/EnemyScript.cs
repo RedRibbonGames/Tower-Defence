@@ -48,6 +48,7 @@ public class EnemyScript : MonoBehaviour {
         {
 
             DestroyThisObject();
+            return;
         }
         Vector3 dir = pathList[0] - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
