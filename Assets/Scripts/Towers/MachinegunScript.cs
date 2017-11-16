@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretScript : MonoBehaviour
+public class MachinegunScript : MonoBehaviour
 {
 
     public GameObject Target;
@@ -76,5 +76,10 @@ public class TurretScript : MonoBehaviour
         BulletObject.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bullet");
         BulletObject.AddComponent<BoxCollider2D>().isTrigger = true;
         BulletObject.transform.position = transform.position;
+    }
+
+    public void Upgrade()
+    {
+
     }
 }

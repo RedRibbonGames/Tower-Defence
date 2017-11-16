@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret
+public class Machinegun
 {
-    public Turret(int x, int y)
+    public Machinegun(int x, int y)
     {
-        GameObject Turret = new GameObject("Turret");
+        GameObject Turret = new GameObject("Machinegun");
         Turret.transform.position = new Vector2(x, y);
         GameObject TurretBase = new GameObject("TurretBase");
         GameObject TurretGun = new GameObject("TurretGun");
@@ -24,7 +24,7 @@ public class Turret
         TurretBase.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Towers";
         TurretGun.gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Towers";
         TurretGun.gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
-        TurretGun.AddComponent<TurretScript>();
+        TurretGun.AddComponent<MachinegunScript>();
     }
 
 }

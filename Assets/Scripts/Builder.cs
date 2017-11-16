@@ -7,7 +7,7 @@ public class Builder : MonoBehaviour
 
     // Use this for initialization
     GameObject[] tiles;
-
+    private string selectedTower = null;
     void Start()
     {
 
@@ -18,19 +18,40 @@ public class Builder : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
-
-            if (hit.collider != null)
+            if(selectedTower != null)
             {
-                Debug.Log("Target Position: " + (int)hit.transform.position.x + "-" + (int)hit.transform.position.y);
-                BuildTurret((int)hit.transform.position.x, (int)hit.transform.position.y);
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
+
+                if (hit.collider != null)
+                {
+                    Debug.Log("Target Position: " + (int)hit.transform.position.x + "-" + (int)hit.transform.position.y);
+                    BuildTurret((int)hit.transform.position.x, (int)hit.transform.position.y);
+                }
             }
+            else
+            {
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
+
+                if (hit.collider != null)
+                {
+                    Debug.Log("Target Position: " + (int)hit.transform.position.x + "-" + (int)hit.transform.position.y);
+                }
+            }
+
         }
     }
 
     public void BuildTurret(int x, int y)
     {
-        Turret turret = new Turret(x, y);
+        new Machinegun(x, y);
 
+    }
+    public void SelectMachineGun()
+    {
+        selectedTower = "Machinegun";
+    }
+    public void DeSelectTower()
+    {
+        selectedTower = null;
     }
 }
