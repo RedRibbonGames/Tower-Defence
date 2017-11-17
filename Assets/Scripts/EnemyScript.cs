@@ -44,7 +44,7 @@ public class EnemyScript : MonoBehaviour {
         {
             pathList.RemoveAt(0);
         }
-        if(pathList.Count == 0)
+        if(pathList.Count == 0 || (pathList.Count == 1 & Vector3.Distance(transform.position, pathList[0]) < 0.2f))
         {
 
             DestroyThisObject();

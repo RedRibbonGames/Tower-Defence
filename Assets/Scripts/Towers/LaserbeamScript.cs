@@ -17,6 +17,10 @@ public class LaserbeamScript : MonoBehaviour
     void Update()
     {
         LocateTarget();
+        if(Target != null)
+        {
+            CreateBullet();
+        }
     }
 
     public void LocateTarget()
@@ -52,6 +56,7 @@ public class LaserbeamScript : MonoBehaviour
             }
             LookAtTarget();
             ShootAtTarget();
+            InvokeDamage();
         }
     }
 
@@ -91,7 +96,6 @@ public class LaserbeamScript : MonoBehaviour
         }
         gameObject.GetComponent<LineRenderer>().SetPosition(0, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -1));
         gameObject.GetComponent<LineRenderer>().SetPosition(1, new Vector3(Target.transform.position.x, Target.transform.position.y, -1));
-        DoDamage();
     }
 
 
@@ -115,10 +119,11 @@ public class LaserbeamScript : MonoBehaviour
 
     public void DoDamage()
     {
-
+        if(Target == null)
+        {
+            return;
+        }
         Target.gameObject.GetComponent<EnemyScript>().TakeDamage(1);
-        Debug.Log("pew");
-
     }
 
     public void InvokeDamage()

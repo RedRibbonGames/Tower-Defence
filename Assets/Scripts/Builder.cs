@@ -33,7 +33,6 @@ public class Builder : MonoBehaviour
                 if (hit.collider != null && hit.collider.gameObject.tag != "Enemy" && hit.collider.gameObject.name != "Path")
                 {
 
-                    Debug.Log("Target Position: " + (int)hit.transform.position.x + "-" + (int)hit.transform.position.y + "--" + hit.collider.gameObject.name);
                     BuildTower((int)hit.transform.position.x, (int)hit.transform.position.y, selectedTower);
                 }
             }

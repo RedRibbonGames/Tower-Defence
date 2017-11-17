@@ -74,12 +74,26 @@ public class MachinegunScript : MonoBehaviour
 
     public void CreateBullet()
     {
-        GameObject BulletObject = new GameObject("Bullet");
-        BulletObject.AddComponent<Bullet>().Target = Target;
-        BulletObject.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bullet");
-        BulletObject.AddComponent<BoxCollider2D>().isTrigger = true;
-        BulletObject.transform.position = transform.position;
-        BulletObject.transform.rotation = transform.rotation;
+        GameObject BulletObject = Pool.GetBulletFromPool();
+
+        if(BulletObject == null)
+        {
+            BulletObject = new GameObject("Bullet");
+            BulletObject.AddComponent<Bullet>().Target = Target;
+            BulletObject.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bullet");
+            BulletObject.AddComponent<BoxCollider2D>().isTrigger = true;
+            BulletObject.GetComponent<SpriteRenderer>().sortingLayerName = "Bullets";
+            BulletObject.transform.position = transform.position;
+            BulletObject.transform.rotation = transform.rotation;
+        }
+        else
+        {
+            BulletObject.GetComponent<Bullet>().Target = Target;
+            BulletObject.transform.position = transform.position;
+            BulletObject.transform.rotation = transform.rotation;
+            BulletObject.SetActive(true);
+        }
+
     }
 
 

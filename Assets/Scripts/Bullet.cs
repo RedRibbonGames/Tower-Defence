@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
             
             transform.position += transform.right * Time.deltaTime * moveSpeed;
             //Debug.Log("Boom I got Destroyed");
-            Destroy(gameObject, 3f);
+            DestroyThisObject(this.gameObject, 1f);
         }
         else
         {
@@ -51,8 +51,11 @@ public class Bullet : MonoBehaviour
         if(hitObject.gameObject == Target)
         {
             hitObject.GetComponent<EnemyScript>().TakeDamage(damage);
-            Destroy(gameObject);
+            DestroyThisObject(this.gameObject, 0f);
         }
-
+    }
+    private void DestroyThisObject(GameObject bullet, float time)
+    {
+        Pool.DeactivateObjectAndAddToPool(bullet);
     }
 }

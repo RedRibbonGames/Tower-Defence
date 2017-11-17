@@ -12,8 +12,8 @@ public class Enemy
         go.AddComponent<BoxCollider2D>();
         go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("EnemySprites/BlackVehicle");
         go.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
-        go.AddComponent<EnemyScript>();
         go.AddComponent<Rigidbody2D>().gravityScale = 0;
+        go.AddComponent<EnemyScript>();
         go.transform.position = startingPosition;
     }
 }
