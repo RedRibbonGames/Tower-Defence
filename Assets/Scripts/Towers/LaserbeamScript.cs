@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserbeamScript : MonoBehaviour {
+public class LaserbeamScript : MonoBehaviour
+{
 
     public GameObject Target;
     public int rateOfFire { get; set; }
@@ -22,7 +23,9 @@ public class LaserbeamScript : MonoBehaviour {
     {
         if (Target == null)
         {
-            CancelInvoke("CreateBullet");
+
+
+            StopShooting();
             //Target = GameObject.FindGameObjectWithTag("Enemy");
             float distance = 5f;
 
@@ -68,19 +71,27 @@ public class LaserbeamScript : MonoBehaviour {
     {
         if (IsInvoking("CreateBullet") == false)
         {
-            InvokeRepeating("CreateBullet", 0f, 10f);
+            InvokeRepeating("CreateBullet", 0f, 0.0001f);
         }
     }
 
     public void StopShooting()
     {
+        CancelInvoke("CreateBullet");
+        CancelInvoke("DoDamage");
         gameObject.GetComponent<LineRenderer>().SetPosition(0, gameObject.transform.position);
         gameObject.GetComponent<LineRenderer>().SetPosition(1, gameObject.transform.position);
     }
     public void CreateBullet()
     {
+        if (Target == null)
+        {
+            StopShooting();
+            return;
+        }
         gameObject.GetComponent<LineRenderer>().SetPosition(0, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -1));
         gameObject.GetComponent<LineRenderer>().SetPosition(1, new Vector3(Target.transform.position.x, Target.transform.position.y, -1));
+        DoDamage();
     }
 
 
@@ -101,8 +112,26 @@ public class LaserbeamScript : MonoBehaviour {
         return true;
 
     }
-    public void Upgrade()
+
+    public void DoDamage()
     {
 
+        Target.gameObject.GetComponent<EnemyScript>().TakeDamage(1);
+        Debug.Log("pew");
+
+    }
+
+    public void InvokeDamage()
+    {
+        if (!IsInvoking("DoDamage"))
+        {
+            InvokeRepeating("DoDamage", 0f, 0.1f);
+        }
+
+    }
+
+    public void Upgrade()
+    {
+        // TODO: Implement Upgrades for towers
     }
 }

@@ -11,7 +11,7 @@ public class EnemyScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         movementSpeed = 5;
-        Health = 20;
+        Health = 10000;
         pathList = new List<Vector3>();
         SetPath();
 	}

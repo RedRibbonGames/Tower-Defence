@@ -12,6 +12,11 @@ public class Laserbeam
         GameObject TurretGun = new GameObject("Laserbeam");
 
         TurretGun.AddComponent<LineRenderer>().material = Resources.Load<Material>("laser");
+        TurretGun.GetComponent<LineRenderer>().startWidth = 0.06f;
+        TurretGun.GetComponent<LineRenderer>().endWidth = 0.06f;
+        TurretGun.GetComponent<LineRenderer>().startColor = Color.white;
+        TurretGun.GetComponent<LineRenderer>().endColor = Color.cyan;
+
 
         TurretBase.transform.SetParent(Turret.transform);
         TurretBase.transform.localPosition = new Vector2(0, 0);
