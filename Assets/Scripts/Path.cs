@@ -10,7 +10,7 @@ public class Path
     public Path(int x, int y)
     {
         go = new GameObject("Path" + x + "-" + y);
-        go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("TurretBase");
+        go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Path");
         go.transform.position = new Vector2(x, y);
         this.x = x;
         this.y = y;

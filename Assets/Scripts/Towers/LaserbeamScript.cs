@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MachinegunScript : MonoBehaviour
-{
+public class LaserbeamScript : MonoBehaviour {
 
     public GameObject Target;
     public int rateOfFire { get; set; }
@@ -45,6 +44,7 @@ public class MachinegunScript : MonoBehaviour
         {
             if (IsInRange() == false)
             {
+                StopShooting();
                 return;
             }
             LookAtTarget();
@@ -68,18 +68,19 @@ public class MachinegunScript : MonoBehaviour
     {
         if (IsInvoking("CreateBullet") == false)
         {
-            InvokeRepeating("CreateBullet", 0f, 0.1f);
+            InvokeRepeating("CreateBullet", 0f, 10f);
         }
     }
 
+    public void StopShooting()
+    {
+        gameObject.GetComponent<LineRenderer>().SetPosition(0, gameObject.transform.position);
+        gameObject.GetComponent<LineRenderer>().SetPosition(1, gameObject.transform.position);
+    }
     public void CreateBullet()
     {
-        GameObject BulletObject = new GameObject("Bullet");
-        BulletObject.AddComponent<Bullet>().Target = Target;
-        BulletObject.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bullet");
-        BulletObject.AddComponent<BoxCollider2D>().isTrigger = true;
-        BulletObject.transform.position = transform.position;
-        BulletObject.transform.rotation = transform.rotation;
+        gameObject.GetComponent<LineRenderer>().SetPosition(0, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -1));
+        gameObject.GetComponent<LineRenderer>().SetPosition(1, new Vector3(Target.transform.position.x, Target.transform.position.y, -1));
     }
 
 

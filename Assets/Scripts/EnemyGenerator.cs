@@ -6,7 +6,7 @@ public class EnemyGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        InvokeRepeating("CreateEnemy", 0f, 0.5f);
 	}
 	
 	// Update is called once per frame

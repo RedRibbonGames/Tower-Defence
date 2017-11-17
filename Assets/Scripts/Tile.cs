@@ -10,7 +10,7 @@ public class Tile
     public Tile(int x, int y)
     {
         go = new GameObject("Tile" + x + "-" + y);
-        go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Floor1");
+        go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Floor");
         go.AddComponent<BoxCollider2D>();
         
         go.transform.position = new Vector2(x, y);
