@@ -60,6 +60,10 @@ public class Builder : MonoBehaviour
             case "Laserbeam":
             BuildLaserbeam(x, y);
             break;
+            case "Slowtower":
+            BuildSlowtower(x, y);
+            break;
+
         }
     }
 
@@ -73,6 +77,10 @@ public class Builder : MonoBehaviour
     {
         new Laserbeam(x, y);
     }
+    public void BuildSlowtower(int x, int y)
+    {
+        new Slowtower(x, y);
+    }
     // buttons
     public void SelectMachineGun()
     {
@@ -82,6 +90,11 @@ public class Builder : MonoBehaviour
     public void SelectLaserbeam()
     {
         selectedTower = "Laserbeam";
+        PlaceBuildingMode();
+    }
+    public void SelectSlowtower()
+    {
+        selectedTower = "Slowtower";
         PlaceBuildingMode();
     }
     public void PlaceBuildingMode()
