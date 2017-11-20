@@ -9,7 +9,7 @@ public class Enemy
     {
         go = new GameObject("Enemy");
         go.tag = "Enemy";
-        go.AddComponent<BoxCollider2D>();
+        go.AddComponent<BoxCollider2D>().isTrigger = true;
         go.AddComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("EnemySprites/BlackVehicle");
         go.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
         go.AddComponent<Rigidbody2D>().gravityScale = 0;

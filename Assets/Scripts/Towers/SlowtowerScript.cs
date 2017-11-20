@@ -5,11 +5,11 @@ using UnityEngine;
 public class SlowtowerScript : MonoBehaviour {
 
     public GameObject Target;
-    public int rateOfFire { get; set; }
+    public int SlowMaginitude { get; set; }
     // Use this for initialization
     void Start()
     {
-        rateOfFire = 1;
+        SlowMaginitude = 2;
     }
 
     // Update is called once per frame
@@ -18,11 +18,20 @@ public class SlowtowerScript : MonoBehaviour {
         
     }
 
-    public void OntriggerStayr2D(Collision2D hitObject)
+    public void OnTriggerEnter2D(Collider2D hitObject)
     {
-        if(hitObject.gameObject.tag == "Enemies")
+        if(hitObject.gameObject.tag == "Enemy")
         {
-            Debug.Log(hitObject.gameObject.name);
+            //Debug.Log("Entering slowzon" + hitObject.gameObject.name);
+            hitObject.gameObject.GetComponent<EnemyScript>().SlowMovement(SlowMaginitude);
+        }
+    }
+    public void OnTriggerExit2D(Collider2D hitObject)
+    {
+        if (hitObject.gameObject.tag == "Enemy")
+        {
+            //Debug.Log("Exiting slowzon" + hitObject.gameObject.name);
+            hitObject.gameObject.GetComponent<EnemyScript>().ResetSpeed();
         }
     }
 

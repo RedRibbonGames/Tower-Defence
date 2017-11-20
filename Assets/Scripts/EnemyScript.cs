@@ -7,11 +7,11 @@ public class EnemyScript : MonoBehaviour {
     private int Health { get; set; }
     public List<Vector3> pathList;
     private int movementSpeed;
-
+    const int ConstantSpeed = 5;
     // Use this for initialization
     void Start () {
-        movementSpeed = 5;
-        Health = 10000;
+        movementSpeed = ConstantSpeed;
+        Health = 100;
         pathList = new List<Vector3>();
         SetPath();
 	}
@@ -75,5 +75,15 @@ public class EnemyScript : MonoBehaviour {
     public void DestroyThisObject()
     {
         Destroy(gameObject);
+    }
+
+    public void SlowMovement(int factor)
+    {
+        movementSpeed = (movementSpeed / factor);
+    }
+
+    public void ResetSpeed()
+    {
+        movementSpeed = ConstantSpeed;
     }
 }

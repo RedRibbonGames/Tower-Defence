@@ -12,7 +12,8 @@ public class Slowtower
         Turret.transform.position = new Vector2(x, y);
         GameObject TurretBase = new GameObject("TurretBase");
         GameObject TurretGun = new GameObject("TurretGun");
-        TurretGun.AddComponent<CircleCollider2D>();
+        TurretGun.AddComponent<CircleCollider2D>().isTrigger = true;
+        TurretGun.GetComponent<CircleCollider2D>().radius = 2f;
 
         TurretBase.transform.SetParent(Turret.transform);
         TurretBase.transform.localPosition = new Vector2(0, 0);
