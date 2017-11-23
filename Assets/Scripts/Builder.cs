@@ -29,7 +29,7 @@ public class Builder : MonoBehaviour
             if (selectedTower != null)
             {
 
-                RaycastHit2D[] hitList = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Mathf.Infinity);
+                RaycastHit2D[] hitList = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Mathf.Infinity, ~(1 << LayerMask.NameToLayer("Slowarea")));
 
                 // check to see if we can build in this location
                 foreach (RaycastHit2D hit in hitList)
