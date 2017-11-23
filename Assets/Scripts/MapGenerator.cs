@@ -6,7 +6,6 @@ public class MapGenerator : MonoBehaviour
 {
 
     // Use this for initialization
-    List<Vector2> pathList = new List<Vector2>();
     GameObject tileHolder;
     GameObject pathHolder;
     void Start()

@@ -56,6 +56,6 @@ public class Bullet : MonoBehaviour
     }
     private void DestroyThisObject(GameObject bullet, float time)
     {
-        Pool.DeactivateObjectAndAddToPool(bullet);
+        Pool.DeactivateBulletAndAddToPool(bullet);
     }
 }

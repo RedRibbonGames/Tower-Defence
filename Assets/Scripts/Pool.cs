@@ -17,7 +17,7 @@ public class Pool : MonoBehaviour
     {
 
     }
-    public static void DeactivateObjectAndAddToPool(GameObject bullet)
+    public static void DeactivateBulletAndAddToPool(GameObject bullet)
     {
         
         bullet.transform.position = new Vector2(-10, -10);

@@ -1,23 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyScript : MonoBehaviour {
+public class EnemyScript : MonoBehaviour
+{
 
-    private int Health { get; set; }
+    public int Health { get; set; }
+    public float ConstantSpeed { get; private set; }
+
     public List<Vector3> pathList;
-    private int movementSpeed;
-    const int ConstantSpeed = 5;
+    private float movementSpeed;
+
+    public int goldWorth;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         movementSpeed = ConstantSpeed;
-        Health = 100;
         pathList = new List<Vector3>();
         SetPath();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         LookAtWaypoint();
         Movement();
 
@@ -28,10 +34,10 @@ public class EnemyScript : MonoBehaviour {
         Health -= damage;
         if (Health <= 0)
         {
-            Destroy(gameObject);
+            ScoreBoard.IncreaseGold(goldWorth);
+            DestroyThisObject();
         }
     }
-
     public void Movement()
     {
         transform.Translate(Vector2.right * Time.deltaTime * movementSpeed);
@@ -40,13 +46,14 @@ public class EnemyScript : MonoBehaviour {
     {
         // if waypoit reached remove from list
 
-        if(Vector3.Distance(transform.position, pathList[0]) < 0.1f && pathList.Count > 0)
+        if (Vector3.Distance(transform.position, pathList[0]) < 0.1f && pathList.Count > 0)
         {
             pathList.RemoveAt(0);
         }
-        if(pathList.Count == 0 || (pathList.Count == 1 & Vector3.Distance(transform.position, pathList[0]) < 0.2f))
+        if (pathList.Count == 0 || (pathList.Count == 1 & Vector3.Distance(transform.position, pathList[0]) < 0.2f))
         {
 
+            ScoreBoard.ReducesLives();
             DestroyThisObject();
             return;
         }
@@ -77,13 +84,37 @@ public class EnemyScript : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public void SlowMovement(int factor)
+    public void SlowMovement(float factor)
     {
-        movementSpeed = (movementSpeed / factor);
+        movementSpeed = (ConstantSpeed / factor);
     }
 
     public void ResetSpeed()
     {
         movementSpeed = ConstantSpeed;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        ConstantSpeed = speed;
+    }
+    public void SetHealth(int health)
+    {
+        this.Health = health;
+    }
+    public void SetGoldWorth(int worth)
+    {
+        goldWorth = worth;
+    }
+    public void Setup(float speed, int health, int goldWorth)
+    {
+        ConstantSpeed = speed;
+        Health = health;
+        this.goldWorth = goldWorth;
+    }
+    public void MakeElite()
+    {
+        Health = (this.Health * 2);
+        goldWorth = (this.goldWorth * 3);
     }
 }

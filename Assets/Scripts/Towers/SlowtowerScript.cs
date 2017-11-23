@@ -5,11 +5,11 @@ using UnityEngine;
 public class SlowtowerScript : MonoBehaviour {
 
     public GameObject Target;
-    public int SlowMaginitude { get; set; }
+    public float SlowMaginitude { get; set; }
     // Use this for initialization
     void Start()
     {
-        SlowMaginitude = 2;
+        SlowMaginitude = 1.5f;
     }
 
     // Update is called once per frame

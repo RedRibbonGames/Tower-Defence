@@ -7,8 +7,9 @@ public class Builder : MonoBehaviour
 {
 
     // Use this for initialization
-    GameObject[] tiles;
     private string selectedTower = null;
+
+    List<string> spotsTaken = new List<string>();
     void Start()
     {
 
@@ -28,13 +29,35 @@ public class Builder : MonoBehaviour
             if (selectedTower != null)
             {
 
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
+                RaycastHit2D[] hitList = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Mathf.Infinity);
 
-                if (hit.collider != null && hit.collider.gameObject.tag != "Enemy" && hit.collider.gameObject.name != "Path")
+                // check to see if we can build in this location
+                foreach (RaycastHit2D hit in hitList)
                 {
-
-                    BuildTower((int)hit.transform.position.x, (int)hit.transform.position.y, selectedTower);
+                    if (hit.collider.tag == "Tower")
+                    {
+                        Debug.Log("There is already something in that location");
+                        return;
+                    }
                 }
+
+                
+                foreach (RaycastHit2D hit in hitList)
+                {
+                    if (hit.collider != null && hit.collider.tag == "Tile")
+                    {
+                        BuildTower((int)hit.transform.position.x, (int)hit.transform.position.y, selectedTower);
+                        Debug.Log(hit.collider.tag);
+                        return;
+
+                    }
+                    else
+                    {
+                        Debug.Log(hit.collider.tag);
+
+                    }
+                }
+
             }
             else
             {
@@ -49,6 +72,15 @@ public class Builder : MonoBehaviour
         }
     }
 
+    public bool IsSpotTake(int x, int y)
+    {
+        string temp = x + "-" + y;
+        if (spotsTaken.Contains(temp))
+        {
+            return true;
+        }
+        return false;
+    }
     public void BuildTower(int x, int y, string name)
     {
 
