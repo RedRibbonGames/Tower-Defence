@@ -20,55 +20,11 @@ public class Builder : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            // Check to see if the pointer is over a UI element
-            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
-
-            if (selectedTower != null)
-            {
-
-                RaycastHit2D[] hitList = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Mathf.Infinity, ~(1 << LayerMask.NameToLayer("Slowarea")));
-
-                // check to see if we can build in this location
-                foreach (RaycastHit2D hit in hitList)
-                {
-                    if (hit.collider.tag == "Tower")
-                    {
-                        Debug.Log("There is already something in that location");
-                        return;
-                    }
-                }
-
-                
-                foreach (RaycastHit2D hit in hitList)
-                {
-                    if (hit.collider != null && hit.collider.tag == "Tile")
-                    {
-                        BuildTower((int)hit.transform.position.x, (int)hit.transform.position.y, selectedTower);
-                        Debug.Log(hit.collider.tag);
-                        return;
-
-                    }
-                    else
-                    {
-                        Debug.Log(hit.collider.tag);
-
-                    }
-                }
-
-            }
-            else
-            {
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
-
-                if (hit.collider != null)
-                {
-                    Debug.Log("Target Position: " + (int)hit.transform.position.x + "-" + (int)hit.transform.position.y);
-                }
-            }
-
+            Action();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 
@@ -80,6 +36,58 @@ public class Builder : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void Action()
+    {
+        // Check to see if the pointer is over a UI element
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        if (selectedTower != null)
+        {
+
+            RaycastHit2D[] hitList = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Mathf.Infinity, ~(1 << LayerMask.NameToLayer("Slowarea")));
+
+            // check to see if we can build in this location
+            foreach (RaycastHit2D hit in hitList)
+            {
+                if (hit.collider.tag == "Tower")
+                {
+                    Debug.Log("There is already something in that location");
+                    return;
+                }
+            }
+
+
+            foreach (RaycastHit2D hit in hitList)
+            {
+                if (hit.collider != null && hit.collider.tag == "Tile")
+                {
+                    BuildTower((int)hit.transform.position.x, (int)hit.transform.position.y, selectedTower);
+                    Debug.Log(hit.collider.tag);
+                    return;
+
+                }
+                else
+                {
+                    Debug.Log(hit.collider.tag);
+
+                }
+            }
+
+        }
+        else
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
+
+            if (hit.collider != null)
+            {
+                Debug.Log("Target Position: " + (int)hit.transform.position.x + "-" + (int)hit.transform.position.y);
+            }
+        }
     }
     public void BuildTower(int x, int y, string name)
     {
