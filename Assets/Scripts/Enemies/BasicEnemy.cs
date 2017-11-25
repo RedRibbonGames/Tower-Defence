@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemy
+public abstract class BasicEnemy
 {
+
+
+    /*
+        All enemies will enherite from this class.
+        
+    */
     protected GameObject go;
     protected int health;
     protected float speed;
@@ -17,14 +23,11 @@ public class BasicEnemy
         go.AddComponent<Rigidbody2D>().gravityScale = 0;
     }
 
-    public virtual void MakeActive()
-    {
 
-    }
+    public abstract void MakeActive();
 
-    public virtual void MakeElite()
-    {
-
-    }
+    // The make elite function will enemies stronger
+    // and have a diffrent sprite 
+    public abstract void MakeElite();
 
 }
