@@ -20,6 +20,7 @@ public class Slowtower : Tower
         TurretBase.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("TurretBase");
         TurretGun.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Slowturret");
 
+        Cost = 100;
         TurretGun.AddComponent<SlowtowerScript>();
     }
 }

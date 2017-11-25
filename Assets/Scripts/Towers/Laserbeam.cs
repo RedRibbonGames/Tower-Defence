@@ -20,6 +20,7 @@ public class Laserbeam : Tower
         TurretBase.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("TurretBase");
         TurretGun.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Laserbeam");
 
+        Cost = 70;
         TurretGun.AddComponent<LaserbeamScript>();
         
     }

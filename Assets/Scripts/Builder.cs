@@ -109,17 +109,34 @@ public class Builder : MonoBehaviour
 
     public void BuildTurret(int x, int y)
     {
-        new Machinegun(x, y);
-
+        Machinegun g = new Machinegun(x, y);
+        if (g.Cost > ScoreBoard.gold)
+        {
+            Destroy(g.Turret);
+            return;
+        }
+        ScoreBoard.gold -= g.Cost;
     }
 
     public void BuildLaserbeam(int x, int y)
     {
-        new Laserbeam(x, y);
+        Laserbeam l = new Laserbeam(x, y);
+        if (l.Cost > ScoreBoard.gold)
+        {
+            Destroy(l.Turret);
+            return;
+        }
+        ScoreBoard.gold -= l.Cost;
     }
     public void BuildSlowtower(int x, int y)
     {
-        new Slowtower(x, y);
+        Slowtower s = new Slowtower(x, y);
+        if (s.Cost > ScoreBoard.gold)
+        {
+            Destroy(s.Turret);
+            return;
+        }
+        ScoreBoard.gold -= s.Cost;
     }
     // buttons
     public void SelectMachineGun()

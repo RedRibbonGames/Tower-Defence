@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Machinegun : Tower
 {
+  
     public Machinegun(int x, int y)
     {
         Turret.transform.position = new Vector2(x, y);
 
         TurretBase.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("TurretBase");
         TurretGun.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("TurretGun");
-
+        
+        Cost = 70;
         TurretGun.AddComponent<MachinegunScript>();
     }
 

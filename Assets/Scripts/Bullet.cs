@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        damage = 2;
+        
         moveSpeed = 10;
     }
     // Update is called once per frame
@@ -19,6 +19,10 @@ public class Bullet : MonoBehaviour
     {
         LookAtTarget();
         Movement();
+    }
+    public void SetDamage(int damage)
+    {
+        this.damage = damage;
     }
     public void Movement()
     {

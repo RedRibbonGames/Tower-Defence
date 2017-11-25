@@ -5,9 +5,10 @@ using UnityEngine;
 public class Tower
 {
 
-    protected GameObject Turret;
+    public GameObject Turret;
     protected GameObject TurretBase;
     protected GameObject TurretGun;
+    public int Cost;
 
     public Tower()
     {
@@ -34,5 +35,10 @@ public class Tower
         Turret.tag = "Tower";
         TurretBase.tag = "Tower";
         TurretGun.tag = "Tower";
+    }
+
+    public void Destroy()
+    {
+        
     }
 }

@@ -6,11 +6,13 @@ public class MachinegunScript : MonoBehaviour
 {
 
     public GameObject Target;
-    public int rateOfFire { get; set; }
+    public float rateOfFire { get; set; }
+    public int damage;
     // Use this for initialization
     void Start()
     {
-        rateOfFire = 1;
+        rateOfFire = 0.5f;
+        damage = 18;
     }
 
     // Update is called once per frame
@@ -68,7 +70,7 @@ public class MachinegunScript : MonoBehaviour
     {
         if (IsInvoking("CreateBullet") == false)
         {
-            InvokeRepeating("CreateBullet", 0f, 0.1f);
+            InvokeRepeating("CreateBullet", 1f, rateOfFire);
         }
     }
 
@@ -85,12 +87,14 @@ public class MachinegunScript : MonoBehaviour
             BulletObject.GetComponent<SpriteRenderer>().sortingLayerName = "Bullets";
             BulletObject.transform.position = transform.position;
             BulletObject.transform.rotation = transform.rotation;
+            BulletObject.GetComponent<Bullet>().SetDamage(damage);
         }
         else
         {
             BulletObject.GetComponent<Bullet>().Target = Target;
+            BulletObject.GetComponent<Bullet>().SetDamage(damage);
             BulletObject.transform.position = transform.position;
-            BulletObject.transform.rotation = transform.rotation;
+            BulletObject.transform.rotation = transform.rotation;         
             BulletObject.SetActive(true);
         }
 

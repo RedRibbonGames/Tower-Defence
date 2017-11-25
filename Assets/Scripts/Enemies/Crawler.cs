@@ -11,9 +11,9 @@ public class Crawler : BasicEnemy
         go.name = "Crawler";
         go.tag = "Enemy";
 
-        health = 100;
-        speed = 3f;
-        goldWorth = 2;
+        health = 30;
+        speed = 2f;
+        goldWorth = 10;
 
         go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("EnemySprites/Crawler");
         go.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";

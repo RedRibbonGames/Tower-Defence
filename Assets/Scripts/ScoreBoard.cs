@@ -12,7 +12,7 @@ public class ScoreBoard : MonoBehaviour
 	// Use this for initialization
 	void Start () {
         lives = 20;
-        gold = 0;
+        gold = 200;
 	}
 	
 	// Update is called once per frame
