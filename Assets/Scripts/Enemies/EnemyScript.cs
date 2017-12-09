@@ -19,21 +19,29 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         movementSpeed = ConstantSpeed;
-        pathList = new List<Vector3>();
-        SetPath();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(pathList.Count == 0)
+        {
+            return;
+        }
         LookAtWaypoint();
         Movement();
 
     }
 
-    // The enemy will take damage based on the incoming damage. 
-    // If the enemy dies it will give the player gold based 
-    // base on how much de enemy is worth
+
+
+
+    /// <summary>
+    /// The enemy will take damage based on the incoming damage. 
+    /// If the enemy dies it will give the player gold based 
+    /// base on how much de enemy is worth
+    /// </summary>
+    /// <param name="damage"> The amount of damage </param>
     public void TakeDamage(int damage)
     {
         Health -= damage;
@@ -82,20 +90,26 @@ public class EnemyScript : MonoBehaviour
     }
 
     // Add waypoint to our path
-    public void SetPath()
+    public void SetPath(List<Vector3> path)
     {
+        pathList = new List<Vector3>();
+        foreach (Vector3 v in path)
+        {
+            pathList.Add(v);
+        }
+       
 
-        pathList.Add(new Vector2(3, 6));
-        pathList.Add(new Vector2(3, 13));
-        pathList.Add(new Vector2(6, 13));
-        pathList.Add(new Vector2(6, 7));
-        pathList.Add(new Vector2(12, 7));
-        pathList.Add(new Vector2(12, 9));
-        pathList.Add(new Vector2(8, 9));
-        pathList.Add(new Vector2(8, 12));
-        pathList.Add(new Vector2(16, 12));
-        pathList.Add(new Vector2(16, 8));
-        pathList.Add(new Vector2(19, 8));
+        //pathList.Add(new Vector2(3, 6));
+        //pathList.Add(new Vector2(3, 13));
+        //pathList.Add(new Vector2(6, 13));
+        //pathList.Add(new Vector2(6, 7));
+        //pathList.Add(new Vector2(12, 7));
+        //pathList.Add(new Vector2(12, 9));
+        //pathList.Add(new Vector2(8, 9));
+        //pathList.Add(new Vector2(8, 12));
+        //pathList.Add(new Vector2(16, 12));
+        //pathList.Add(new Vector2(16, 8));
+        //pathList.Add(new Vector2(19, 8));
     }
 
     // Remove an object from the scene
@@ -140,9 +154,9 @@ public class EnemyScript : MonoBehaviour
     }
 
     // Make an elite version of the enemy
-    public void MakeElite()
+    public void MakeElite(int healthFactor, int goldFactor)
     {
-        Health = (this.Health * 2);
-        goldWorth = (this.goldWorth * 3);
+        Health = (this.Health * healthFactor);
+        goldWorth = (this.goldWorth * goldFactor);
     }
 }

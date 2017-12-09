@@ -10,7 +10,7 @@ public abstract class BasicEnemy
         All enemies will enherite from this class.
         
     */
-    protected GameObject go;
+    public GameObject go;
     protected int health;
     protected float speed;
     protected int goldWorth;
@@ -25,9 +25,10 @@ public abstract class BasicEnemy
 
 
     public abstract void MakeActive();
+    public abstract void MakeStronger(float speed, int health, int gold);
 
     // The make elite function will enemies stronger
     // and have a diffrent sprite 
-    public abstract void MakeElite();
+    public abstract void MakeElite(int healthFactor, int goldFactor);
 
 }

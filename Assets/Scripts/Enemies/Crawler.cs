@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ public class Crawler : BasicEnemy
         // Give the object ingame visuals
         go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("EnemySprites/Crawler");
         go.GetComponent<SpriteRenderer>().sortingLayerName = "Enemies";
-    
+
         // Give the object a starting position
         go.transform.position = startingPosition;
 
@@ -30,15 +31,20 @@ public class Crawler : BasicEnemy
         go.SetActive(false);
     }
 
-    public override void MakeElite()
+    public override void MakeElite(int healthFactor, int goldFactor)
     {
         go.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("EnemySprites/EliteCrawler");
-        go.GetComponent<EnemyScript>().MakeElite();
+        go.GetComponent<EnemyScript>().MakeElite(healthFactor, goldFactor);
         go.name = "EliteCrawler";
     }
 
     public override void MakeActive()
     {
         go.SetActive(true);
+    }
+
+    public override void MakeStronger(float speed, int health, int gold)
+    {
+        go.GetComponent<EnemyScript>().Setup(speed, health, gold);
     }
 }
